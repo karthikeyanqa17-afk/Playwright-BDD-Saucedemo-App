@@ -1,17 +1,8 @@
 
-# Node
-node_modules/
-
-# Environment Variables (Very Important for Security)
-.env
-
 # Playwright
+node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
-
-# Allure Reports
-allure-results/
-allure-report/

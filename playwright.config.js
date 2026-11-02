@@ -1,25 +1,33 @@
 import { defineConfig, devices } from '@playwright/test';
+import {defineBddConfig} from 'playwright-bdd';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
+const testDir = defineBddConfig({
+  features: 'Features/*.feature',
+  steps: 'steps/*.js',
+});
+
 export default defineConfig({
-  testDir: './tests',
+  testDir,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: 1, 
+  retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ['html'], 
-    ['junit', { outputFile: 'results.xml' }],
+    ['html'],
     ['allure-playwright']
   ],
   use: {
     baseURL: process.env.BASE_URL,
     trace: 'on-first-retry',
+    video: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    headless: false, 
     launchOptions: {
       slowMo: 1000, 
-    }
+    },
   },
   projects: [
     {

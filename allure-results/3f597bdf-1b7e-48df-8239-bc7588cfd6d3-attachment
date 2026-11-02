@@ -1,0 +1,71 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: features\login.feature.spec.js >> Sauce Demo Login Functionality >> Successful login with valid credentials
+- Location: .features-gen\features\login.feature.spec.js:6:3
+
+# Error details
+
+```
+Test timeout of 30000ms exceeded.
+```
+
+```
+Error: page.waitForSelector: Test timeout of 30000ms exceeded.
+Call log:
+  - waiting for locator('.title') to be visible
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]: Swag Labs
+  - main [ref=e5]:
+    - form "Login" [ref=e9]:
+      - textbox "Username" [ref=e11]: standard_user
+      - textbox "Password" [ref=e13]: secret_sauce
+      - button "Login" [active] [ref=e15] [cursor=pointer]
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - heading "Accepted usernames are:" [level=4] [ref=e19]
+        - text: standard_userlocked_out_userproblem_userperformance_glitch_usererror_uservisual_user
+      - generic [ref=e20]:
+        - heading "Password for all users:" [level=4] [ref=e21]
+        - text: secret_sauce
+```
+
+# Test source
+
+```ts
+  1  | import { createBdd, test } from 'playwright-bdd';
+  2  | 
+  3  | 
+  4  | const { Given, When, Then } = createBdd(test);
+  5  | 
+  6  | Given('I am on the Sauce Demo login page', async ({ page }) => {
+  7  |   await page.goto('https://www.saucedemo.com/');
+  8  | });
+  9  | 
+  10 | When('I enter username {string} and password {string}', async ({ page }, username, password) => {
+  11 |   await page.locator('[data-test="username"]').fill(username);
+  12 |   await page.locator('[data-test="password"]').fill(password);
+  13 | });
+  14 | 
+  15 | When('I click the login button', async ({ page }) => {
+  16 |   await page.locator('[data-test="login-button"]').click();
+  17 | });
+  18 | 
+  19 | Then('I should see the products page', async ({ page }) => {
+> 20 |   await page.waitForSelector('.title');
+     |              ^ Error: page.waitForSelector: Test timeout of 30000ms exceeded.
+  21 |   const title = await page.locator('.title').innerText();
+  22 |   if (title !== 'Products') throw new Error('Login failed');
+  23 | });
+```

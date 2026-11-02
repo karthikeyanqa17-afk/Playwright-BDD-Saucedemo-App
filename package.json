@@ -1,21 +1,18 @@
 {
-  "name": "harvee-technologies-qa-assessment",
+  "name": "saucedemo-playwright-automation",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Playwright POM Automation with Allure Reporting",
+  "type": "module",
   "scripts": {
     "test": "playwright test",
-    "report:allure": "npx allure generate ./allure-results --clean && npx allure open ./allure-report"
+    "report:allure": "allure generate ./allure-results --clean && allure open ./allure-report"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "devDependencies": {
-    "@playwright/test": "^1.64.1",
-    "@types/node": "^26.6.6",
-    "allure-commandline": "^2.27.0",
-    "allure-playwright": "^2.10.0",
-    "dotenv": "^16.0.0"
+    "@cucumber/cucumber": "^13.3.0",
+    "@playwright/test": "^1.40.0",
+    "allure-commandline": "^2.46.1",
+    "allure-playwright": "^2.15.1",
+    "dotenv": "^16.3.1",
+    "playwright-bdd": "^9.2.1"
   }
 }
